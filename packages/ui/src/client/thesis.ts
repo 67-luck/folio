@@ -27,7 +27,7 @@ export async function loadTheses(symbol?: string): Promise<InvestmentThesis[]> {
   try {
     const loader = thesisApi()?.list;
     if (typeof loader !== 'function') return [];
-    return unwrapIpcResult<InvestmentThesis[]>(await loader(input)) ?? [];
+    return unwrapIpcResult<InvestmentThesis[]>(await loader(symbol)) ?? [];
   } catch {
     return [];
   }
@@ -47,7 +47,7 @@ export async function saveThesisFromReport(input: { symbol: string; reportId?: s
   try {
     const loader = thesisApi()?.saveFromReport;
     if (typeof loader !== 'function') return null;
-    return unwrapIpcResult<InvestmentThesis>(await loader(symbol));
+    return unwrapIpcResult<InvestmentThesis>(await loader(input));
   } catch {
     return null;
   }
